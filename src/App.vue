@@ -2,6 +2,8 @@
   <div id="app">
     <!-- <img alt="Vue logo" src="./assets/logo.png" /> -->
     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
+    <Header />
+    <TodoAdd v-on:todo-add="onAddTodo"/>
     <TodoList v-bind:todos="todos"  v-on:todo-delete="onDeleteTodo"/>
   </div>
 </template>
@@ -9,12 +11,16 @@
 <script>
 // import HelloWorld from './components/HelloWorld.vue'
 import TodoList from "./components/TodoList.vue";
+import Header from "./components/layouts/Header.vue";
+import TodoAdd from "./components/TodoAdd.vue";
 
 export default {
   name: "App",
   components: {
     // HelloWorld
     TodoList,
+    Header,
+    TodoAdd
   },
   data() {
     return {
@@ -38,6 +44,9 @@ export default {
     onDeleteTodo(id) {
       console.log('Deleting ' + id + "...");
       this.todos = this.todos.filter(todo => todo.id !== id);
+    },
+    onAddTodo(newTodo){
+      this.todos = [...this.todos, newTodo];
     }
   }
 };
@@ -62,5 +71,18 @@ export default {
 body {
   line-height: 1.4;
   font-family: Helvetica, Arial, sans-serif;
+}
+
+.btn {
+  display: inline-block;
+  border: none;
+  background: #757575;
+  color: white;
+  padding: 4px 16px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: lightgrey;
 }
 </style>
