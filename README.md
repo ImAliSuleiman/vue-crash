@@ -1,4 +1,4 @@
-# tut
+# Vue Crash
 
 ## Project setup
 ```
