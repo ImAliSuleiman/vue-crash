@@ -1,7 +1,11 @@
 <template>
-  <div class="todo-item" v-bind:class="{'is-complete':todo.completed}">
+  <div class="todo-item" v-bind:class="{ 'is-complete': todo.completed }">
     <p>
-      <input type="checkbox" v-on:change="onCompleteChange" v-bind:checked="todo.completed" />
+      <input
+        type="checkbox"
+        v-on:change="onCompleteChange"
+        v-bind:checked="todo.completed"
+      />
       {{ todo.title }}
       <button class="del" @click="onDeleteTodo">x</button>
     </p>
@@ -9,19 +13,23 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
   name: "TodoItem",
   props: ["todo"],
   methods: {
+    ...mapActions(["deleteTodo"]),
     onCompleteChange() {
       console.log("onCompleteChange: " + !this.todo.completed);
       this.todo.completed = !this.todo.completed;
     },
     onDeleteTodo() {
       console.log("onDeleteTodo: " + this.todo.id);
-      this.$emit('todo-delete', this.todo.id);
-    },
-  },
+      // this.$emit('todo-delete', this.todo.id);
+      this.deleteTodo(this.todo.id);
+    }
+  }
 };
 </script>
 

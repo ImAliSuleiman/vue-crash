@@ -71,13 +71,13 @@ export default {
   },
   created() {
     console.log("Vue app created!");
-    axios
-      .get("https://jsonplaceholder.typicode.com/todos?_limit=10")
-      .then((response) => {
-        // console.log('data: ' + response.data.size);
-        this.todos = response.data;
-      })
-      .catch((e) => console.log(e));
+    // axios
+    //   .get("https://jsonplaceholder.typicode.com/todos?_limit=10")
+    //   .then((response) => {
+    //     // console.log('data: ' + response.data.size);
+    //     this.todos = response.data;
+    //   })
+    //   .catch((e) => console.log(e));
   },
 };
 </script>

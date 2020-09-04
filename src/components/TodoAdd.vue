@@ -9,6 +9,7 @@
 
 <script>
 import { v4 as uuidv4 } from 'uuid';
+import { mapActions } from 'vuex'
 
 export default {
   name: "TodoAdd",
@@ -18,19 +19,21 @@ export default {
       }
   },
   methods: {
+    ...mapActions(['addTodo']),
     onAddTodo(e) {
         e.preventDefault();
+        this.addTodo(this.title);
 
-        const newTodo = {
-            id: uuidv4(),
-            title: this.title,
-            completed: false
-        }
+    //     const newTodo = {
+    //         id: uuidv4(),
+    //         title: this.title,
+    //         completed: false
+    //     }
 
-        // Send to parent
-        this.$emit('todo-add', newTodo);
-        // Clear fields
-        this.title = '';
+    //     // Send to parent
+    //     this.$emit('todo-add', newTodo);
+    //     // Clear fields
+    //     this.title = '';
     },
   },
 };
