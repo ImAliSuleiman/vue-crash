@@ -4,6 +4,7 @@
     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
     <!-- <Header /> -->
     <TodoAdd v-on:todo-add="onAddTodo" />
+    <TodoFilter />
     <TodoList v-bind:todos="todos" v-on:todo-delete="onDeleteTodo" />
   </div>
 </template>
@@ -13,6 +14,7 @@
 import TodoList from "../components/TodoList.vue";
 // import Header from "../components/layouts/Header.vue";
 import TodoAdd from "../components/TodoAdd.vue";
+import TodoFilter from "../components/TodoFilter.vue";
 import axios from "axios";
 
 export default {
@@ -22,6 +24,7 @@ export default {
     TodoList,
     // Header,
     TodoAdd,
+    TodoFilter
   },
   data() {
     return {
@@ -38,7 +41,7 @@ export default {
         //   title: "Watch one episode of Umbrella Academy",
         //   completed: false,
         // },
-      ],
+      ]
     };
   },
   methods: {
@@ -46,11 +49,11 @@ export default {
       console.log("Deleting " + id + "...");
       axios
         .delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
-        .then((response) => {
+        .then(response => {
           console.log(response.data);
-          this.todos = this.todos.filter((todo) => todo.id !== id);
+          this.todos = this.todos.filter(todo => todo.id !== id);
         })
-        .catch((e) => console.log(e));
+        .catch(e => console.log(e));
 
       // this.todos = this.todos.filter((todo) => todo.id !== id);
     },
@@ -61,13 +64,13 @@ export default {
       axios
         .post("https://jsonplaceholder.typicode.com/todos", {
           title: title,
-          completed: completed,
+          completed: completed
         })
-        .then((response) => (this.todos = [...this.todos, response.data]))
-        .catch((e) => console.log(e));
+        .then(response => (this.todos = [...this.todos, response.data]))
+        .catch(e => console.log(e));
 
       // this.todos = [...this.todos, newTodo];
-    },
+    }
   },
   created() {
     console.log("Vue app created!");
@@ -78,7 +81,7 @@ export default {
     //     this.todos = response.data;
     //   })
     //   .catch((e) => console.log(e));
-  },
+  }
 };
 </script>
 

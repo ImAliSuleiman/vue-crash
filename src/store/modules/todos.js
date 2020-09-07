@@ -16,7 +16,7 @@ const getters = {
 const actions = {
     async fetchTodos({ commit }) {
         axios
-            .get("https://jsonplaceholder.typicode.com/todos?_limit=10")
+            .get("https://jsonplaceholder.typicode.com/todos?_limit=20")
             .then((response) => {
                 // console.log('data: ' + response.data.size);
                 // this.todos = response.data;
@@ -42,6 +42,23 @@ const actions = {
                 console.log('Todo deleted: ' + response.data);
                 // this.todos = this.todos.filter((todo) => todo.id !== id);
                 commit('removeTodo', id);
+            })
+            .catch((e) => console.log(e));
+    },
+
+    async filterTodos({ commit }, e) {
+        // console.log(e);
+        // Get selected option
+        const limit = parseInt(e.target.options[e.target.options.selectedIndex].innerText);
+        console.log(limit);
+
+        axios
+            .get(`https://jsonplaceholder.typicode.com/todos?_limit=${limit}`)
+            .then((response) => {
+                // console.log('data: ' + response.data.size);
+                // this.todos = response.data;
+                console.log('Todos loaded: ' + response.data.length);
+                commit('setTodos', response.data);
             })
             .catch((e) => console.log(e));
     }
