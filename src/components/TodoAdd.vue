@@ -1,41 +1,46 @@
 <template>
   <div>
     <form @submit="onAddTodo">
-      <input type="text" name="title" placeholder="Add Todo..." v-model="title"/>
-      <input type="submit" class="btn" value="Add"/>
+      <input
+        type="text"
+        name="title"
+        placeholder="Add Todo..."
+        v-model="title"
+      />
+      <input type="submit" class="btn" value="Add" />
     </form>
   </div>
 </template>
 
 <script>
 // import { v4 as uuidv4 } from 'uuid';
-import { mapActions } from 'vuex'
+import { mapActions } from "vuex";
 
 export default {
   name: "TodoAdd",
   data() {
-      return {
-          title: ''
-      }
+    return {
+      title: ""
+    };
   },
   methods: {
-    ...mapActions(['addTodo']),
+    ...mapActions(["addTodo"]),
     onAddTodo(e) {
-        e.preventDefault();
-        this.addTodo(this.title);
+      e.preventDefault();
+      this.addTodo(this.title);
 
-    //     const newTodo = {
-    //         id: uuidv4(),
-    //         title: this.title,
-    //         completed: false
-    //     }
+      //     const newTodo = {
+      //         id: uuidv4(),
+      //         title: this.title,
+      //         completed: false
+      //     }
 
-    //     // Send to parent
-    //     this.$emit('todo-add', newTodo);
-    //     // Clear fields
-    //     this.title = '';
-    },
-  },
+      //     // Send to parent
+      //     this.$emit('todo-add', newTodo);
+      //     // Clear fields
+      //     this.title = '';
+    }
+  }
 };
 </script>
 

@@ -39,7 +39,7 @@ const actions = {
         axios
             .delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
             .then((response) => {
-                console.log(response.data);
+                console.log('Todo deleted: ' + response.data);
                 // this.todos = this.todos.filter((todo) => todo.id !== id);
                 commit('removeTodo', id);
             })
@@ -51,7 +51,10 @@ const mutations = {
     setTodos: (state, todos) => (state.todos = todos),
     // newTodo: (state, todo) => (state.todos = [...state.todos, todo]),
     // newTodo: (state, todo) => (state.todos.push(todo),
-    newTodo: (state, todo) => state.todos.ushift(todo),
+    newTodo: (state, todo) => {
+        console.log('Todo added: ' + todo);
+        state.todos.unshift(todo);
+    },
     removeTodo: (state, deletedId) => state.todos = state.todos.filter((todo) => todo.id != deletedId)
 };
 
