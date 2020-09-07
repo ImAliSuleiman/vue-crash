@@ -19,10 +19,18 @@ export default {
   name: "TodoItem",
   props: ["todo"],
   methods: {
-    ...mapActions(["deleteTodo"]),
+    ...mapActions(["deleteTodo", "updateTodo"]),
     onCompleteChange() {
       console.log("onCompleteChange: " + !this.todo.completed);
-      this.todo.completed = !this.todo.completed;
+      // this.todo.completed = !this.todo.completed;
+      const updatedTodo = {
+        id: this.todo.id,
+        title: this.todo.title,
+        completed: !this.todo.completed
+      };
+
+      // Call action
+      this.updateTodo(updatedTodo);
     },
     onDeleteTodo() {
       console.log("onDeleteTodo: " + this.todo.id);

@@ -31,7 +31,7 @@ const actions = {
                 title: title,
                 completed: false,
             })
-            .then((response) => commit('newTodo', response.data)) /* (this.todos = [...this.todos, response.data])) */
+            .then((response) => commit('addTodo', response.data)) /* (this.todos = [...this.todos, response.data])) */
             .catch((e) => console.log(e));
     },
 
@@ -41,7 +41,7 @@ const actions = {
             .then((response) => {
                 console.log('Todo deleted: ' + response.data);
                 // this.todos = this.todos.filter((todo) => todo.id !== id);
-                commit('removeTodo', id);
+                commit('deleteTodo', id);
             })
             .catch((e) => console.log(e));
     },
@@ -61,6 +61,18 @@ const actions = {
                 commit('setTodos', response.data);
             })
             .catch((e) => console.log(e));
+    },
+
+    async updateTodo({ commit }, updatedTodo) {
+        axios
+            .put(`https://jsonplaceholder.typicode.com/todos/${updatedTodo.id}`, updatedTodo)
+            .then((response) => {
+                // console.log('data: ' + response.data.size);
+                // this.todos = response.data;
+                console.log('Todo updated: ' + response.data);
+                commit('updateTodo', response.data);
+            })
+            .catch((e) => console.log(e));
     }
 };
 
@@ -68,11 +80,18 @@ const mutations = {
     setTodos: (state, todos) => (state.todos = todos),
     // newTodo: (state, todo) => (state.todos = [...state.todos, todo]),
     // newTodo: (state, todo) => (state.todos.push(todo),
-    newTodo: (state, todo) => {
+    addTodo: (state, todo) => {
         console.log('Todo added: ' + todo);
         state.todos.unshift(todo);
     },
-    removeTodo: (state, deletedId) => state.todos = state.todos.filter((todo) => todo.id != deletedId)
+    deleteTodo: (state, deletedId) => state.todos = state.todos.filter((todo) => todo.id != deletedId),
+    updateTodo: (state, updatedTodo) => {
+        const index = state.todos.findIndex(todo => todo.id === updatedTodo.id);
+
+        if (index !== -1) {
+            state.todos.splice(index, 1, updatedTodo);
+        }
+    }
 };
 
 export default {
