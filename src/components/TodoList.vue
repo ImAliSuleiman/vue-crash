@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p v-bind:key="todo.id" v-for="todo in todos">
+    <p v-bind:key="todo.id" v-for="todo in allTodos">
       <TodoItem
         v-bind:todo="todo"
         v-on:todo-delete="$emit('todo-delete', todo.id)"
@@ -19,9 +19,13 @@ export default {
   components: {
     TodoItem
   },
-  computed: mapGetters(["allTodos"]),
+  computed: {
+    ...mapGetters(["allTodos"])
+    // ...mapGetters('todoList', ["allTodos"])
+  },
   methods: {
     ...mapActions(["fetchTodos"])
+    // ...mapActions('todoList', ["fetchTodos"])
   },
   created() {
     this.fetchTodos();

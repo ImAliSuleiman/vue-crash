@@ -34,6 +34,17 @@ const actions = {
             .then((response) => commit('newTodo', response.data)) /* (this.todos = [...this.todos, response.data])) */
             .catch((e) => console.log(e));
     },
+
+    async deleteTodo({ commit }, id) {
+        axios
+            .delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
+            .then((response) => {
+                console.log(response.data);
+                // this.todos = this.todos.filter((todo) => todo.id !== id);
+                commit('removeTodo', id);
+            })
+            .catch((e) => console.log(e));
+    }
 };
 
 const mutations = {
@@ -41,9 +52,11 @@ const mutations = {
     // newTodo: (state, todo) => (state.todos = [...state.todos, todo]),
     // newTodo: (state, todo) => (state.todos.push(todo),
     newTodo: (state, todo) => state.todos.ushift(todo),
+    removeTodo: (state, deletedId) => state.todos = state.todos.filter((todo) => todo.id != deletedId)
 };
 
 export default {
+    // namespaced: true,
     state: state,
     getters: getters,
     actions: actions,

@@ -1,13 +1,14 @@
 import Vuex from 'vuex';
 import Vue from 'vue';
-import todoList from '../components/TodoList'
+import todos from './modules/todos';
 
 // Load VueX
 Vue.use(Vuex);
 
 // Create store
-export default Vuex.Store({
+export default new Vuex.Store({
     modules: {
-        todoList
+        todos
+        // todos: todos
     }
 });
